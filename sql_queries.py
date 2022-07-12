@@ -1,14 +1,14 @@
 # DROP TABLES
 
-songplay_table_drop = "DROP TABLE IF EXISTS songplay_table"
-user_table_drop = "DROP TABLE IF EXISTS user_table"
-song_table_drop = "DROP TABLE IF EXISTS song_table"
-artist_table_drop = "DROP TABLE IF EXISTS artist_table"
-time_table_drop = "DROP TABLE IF EXISTS time_table"
+songplay_table_drop = "DROP TABLE IF EXISTS songplays"
+user_table_drop = "DROP TABLE IF EXISTS users"
+song_table_drop = "DROP TABLE IF EXISTS songs"
+artist_table_drop = "DROP TABLE IF EXISTS artists"
+time_table_drop = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
-songplay_table_create = (""" CREATE TABLE IF NOT EXISTS songplay_table (songplay_id SERIAL,
+songplay_table_create = (""" CREATE TABLE IF NOT EXISTS songplays (songplay_id SERIAL,
 start_time TIMESTAMP NOT NULL,
 user_id INT NOT NULL,
 level TEXT,
@@ -20,7 +20,7 @@ user_agent TEXT,
 PRIMARY KEY (songplay_id))
 """)
 
-user_table_create = (""" CREATE TABLE IF NOT EXISTS user_table (
+user_table_create = (""" CREATE TABLE IF NOT EXISTS users (
 user_id INT,
 first_name TEXT,
 last_name TEXT,
@@ -29,7 +29,7 @@ level TEXT,
 PRIMARY KEY (user_id))
 """)
 
-song_table_create = (""" CREATE TABLE IF NOT EXISTS song_table (
+song_table_create = (""" CREATE TABLE IF NOT EXISTS songs (
 song_id TEXT, 
 title TEXT NOT NULL, 
 artist_id TEXT, 
@@ -38,7 +38,7 @@ duration FLOAT NOT NULL,
 PRIMARY KEY (song_id))
 """)
 
-artist_table_create = (""" CREATE TABLE IF NOT EXISTS artist_table (
+artist_table_create = (""" CREATE TABLE IF NOT EXISTS artists (
 artist_id TEXT, 
 name TEXT NOT NULL, 
 location TEXT, 
@@ -47,7 +47,7 @@ longitude FLOAT,
 PRIMARY KEY (artist_id))
 """)
 
-time_table_create = (""" CREATE TABLE IF NOT EXISTS time_table (
+time_table_create = (""" CREATE TABLE IF NOT EXISTS time (
 start_time TIMESTAMP, 
 hour  INT, 
 day  INT, 
@@ -60,33 +60,33 @@ PRIMARY KEY (start_time))
 
 # INSERT RECORDS
 
-songplay_table_insert = (""" INSERT INTO songplay_table (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+songplay_table_insert = (""" INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
 VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING
 """)
 
-user_table_insert = (""" INSERT INTO user_table (user_id, first_name, last_name, gender, level)
-VALUES (%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO NOTHING
+user_table_insert = (""" INSERT INTO users (user_id, first_name, last_name, gender, level)
+VALUES (%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO UPDATE SET level = EXCLUDED.level;
 """)
 
-song_table_insert = (""" INSERT INTO song_table (song_id, title, artist_id, year, duration)
+song_table_insert = (""" INSERT INTO songs (song_id, title, artist_id, year, duration)
 VALUES (%s,%s,%s,%s,%s) ON CONFLICT (song_id) DO NOTHING
 """)
 
-artist_table_insert = (""" INSERT INTO artist_table (artist_id, name, location, latitude, longitude)
+artist_table_insert = (""" INSERT INTO artists (artist_id, name, location, latitude, longitude)
 VALUES (%s,%s,%s,%s,%s) ON CONFLICT (artist_id) DO NOTHING
 """)
 
 
-time_table_insert = (""" INSERT INTO time_table (start_time, hour, day, week, month, year, weekday)
+time_table_insert = (""" INSERT INTO time (start_time, hour, day, week, month, year, weekday)
 VALUES (%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (start_time) DO NOTHING
 """)
 
-# FIND song_table
+# FIND songs
 
 
-song_select = (""" SELECT song_table.song_id, song_table.artist_id
-FROM song_table JOIN artist_table ON artist_table.artist_id = song_table.artist_id
-WHERE song_table.title = %s AND artist_table.name = %s AND song_table.duration = %s
+song_select = (""" SELECT songs.song_id, songs.artist_id
+FROM songs JOIN artists ON artists.artist_id = songs.artist_id
+WHERE songs.title = %s AND artists.name = %s AND songs.duration = %s
 """)
 
 # QUERY LISTS
