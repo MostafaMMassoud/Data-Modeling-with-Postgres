@@ -35,9 +35,12 @@ In IPython:
 ## Comparison
 
 - First I ran the old script to monitor its performance also, I commented out the print statements in the code. 
-	<img src="timing.png" alt="ERD Diagram" width="550"/>
-- Secondly, I run the new scripts
-	<img src="fast_timing.png" alt="ERD Diagram" width="550"/>
+
+<img src="timing.png" alt="ERD Diagram" width="550"/>
+
+- Secondly, I run the new scripts.
+
+<img src="fast_timing.png" alt="ERD Diagram" width="550"/>
 
 ## Results
 
