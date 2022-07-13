@@ -1,0 +1,9 @@
+psycopg2
+numpy
+pandas
+json
+csv
+sqlalchemy_schemadisplay
+sqlalchemy
+functools
+memory_profiler

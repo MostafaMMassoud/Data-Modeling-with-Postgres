@@ -90,6 +90,10 @@ This directory contains a collection of JSON log files. These files are used to 
 
 This directory contains a collection of Song JSON files. These files are used to populate Dimension tables for Song_table and Artist_Table.
 
+### Directory: Faster_Execute
+
+This directory contains a more time optimized code for inserting the data into the database.
+
 ##  create_tables.py
 
 This Python script recreates the database and tables used to store the data.
